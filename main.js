@@ -29,13 +29,13 @@ const slides =
     document.querySelectorAll('.home_slide');
 
 const sliderDots =
-    document.getElementById('sliderDots');
+    document.querySelector('.slider_dots');
 
 const sliderPrev =
-    document.getElementById('sliderPrev');
+    document.querySelector('.slider_prev');
 
 const sliderNext =
-    document.getElementById('sliderNext');
+    document.querySelector('.slider_next');
 
 const sliderCurrent =
     document.getElementById('sliderCurrent');
@@ -51,38 +51,40 @@ let sliderTimer;
    CREATE DOTS
 ===================================================== */
 
-slides.forEach((slide, index) => {
+if (sliderDots) {
+    slides.forEach((slide, index) => {
 
-    const dot =
-        document.createElement('button');
+        const dot =
+            document.createElement('button');
 
-    dot.classList.add('slider_dot');
+        dot.classList.add('slider_dot');
 
-    dot.setAttribute(
-        'aria-label',
-        `Go to slide ${index + 1}`
-    );
-
-
-    if (index === 0) {
-
-        dot.classList.add('active');
-
-    }
+        dot.setAttribute(
+            'aria-label',
+            `Go to slide ${index + 1}`
+        );
 
 
-    dot.addEventListener('click', () => {
+        if (index === 0) {
 
-        goToSlide(index);
+            dot.classList.add('active');
 
-        restartSlider();
+        }
+
+
+        dot.addEventListener('click', () => {
+
+            goToSlide(index);
+
+            restartSlider();
+
+        });
+
+
+        sliderDots.appendChild(dot);
 
     });
-
-
-    sliderDots.appendChild(dot);
-
-});
+}
 
 
 const dots =
