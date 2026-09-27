@@ -558,3 +558,35 @@ if (typeof ScrollReveal !== 'undefined') {
     );
 
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('photoLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeButton = lightbox.querySelector('.photo_lightbox_close');
+
+    document.querySelectorAll('#gallery .gallery_item img').forEach(photo => {
+        photo.tabIndex = 0;
+        photo.setAttribute('role', 'button');
+        photo.setAttribute('aria-label', `Open ${photo.alt || 'photo'} full screen`);
+
+        const openPhoto = () => {
+            lightboxImage.src = photo.src;
+            lightboxImage.alt = photo.alt;
+            lightbox.showModal();
+        };
+
+        photo.addEventListener('click', openPhoto);
+        photo.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openPhoto();
+            }
+        });
+    });
+
+    closeButton.addEventListener('click', () => lightbox.close());
+
+    lightbox.addEventListener('click', event => {
+        if (event.target === lightbox) lightbox.close();
+    });
+});
